@@ -40,7 +40,7 @@ xdg-user-dirs-update
 sudo systemctl enable paccache.timer
 
 # Clone git repo
-git clone https://github.com/l1nux-th1ngz/colors.git
+git clone git@github.com:AhmedSaadi0/my-hyprland-config.git
 
 # Files
 mv ~/.config/hypr/ ~/.config/hypr-old
