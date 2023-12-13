@@ -27,7 +27,7 @@ yay -S --noconfirm autoconf autoconf-archive automake base-devel multilib-devel 
   spotify spotify-adblock-git spotify-wayland tumbler hyprland-git \
   aylurs-gtk-shell eww-wayland zenity aalib jp2a ascii i2pd lsd thefuck \
   archinstall shell-color-scripts udisks2 udiskie aurutils pavucontrol \
-  xdg-user-dirs pacman-contrib reflector rustup
+  xdg-user-dirs pacman-contrib reflector rustup sddm plymouth
 # Prompt user to choose Rust version
 echo "Select default Rust version using 'rustup default <version>' (e.g., stable, nightly)"
 read -p "Enter Rust version: " rust_version
