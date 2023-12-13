@@ -35,7 +35,7 @@ yay -S --noconfirm autoconf autoconf-archive automake base-devel multilib-devel 
   spotify spotify-adblock-git spotify-wayland tumbler hyprland-git \
   aylurs-gtk-shell eww-wayland zenity aalib jp2a ascii i2pd lsd thefuck \
   archinstall shell-color-scripts udisks2 udiskie aurutils pavucontrol \
-  xdg-user-dirs pacman-contrib reflector
+  xdg-user-dirs pacman-contrib reflector archlinux-themes-sddm
 
 # Continue with the rest of the script...
 
@@ -44,61 +44,6 @@ xdg-user-dirs-update
 
 # Start paccache.timer
 sudo systemctl enable paccache.timer
-
-# Clone git repo
-git clone https://github.com/l1nux-th1ngz/colors.git
-
-# Files
-mv ~/.config/hypr/ ~/.config/hypr-old
-mv ~/.config/ags/ ~/.config/ags-old
-mv ~/.config/wofi/ ~/.config/wofi-old
-cp ~/.config/fish/config.fish ~/.config/fish/config.back.fish
-cp -r .config/zathura ~/.config/
-cp -r .config/deadd ~/.config/
-cp -r .config/mako ~/.config/
-cp -r .config/cava ~/.config/
-cp -r .config/kitty ~/.config/
-cp -r .config/rofi ~/.config
-cp -r .config/dunst ~/.config
-cp -r .config/eww ~/.config
-cp -r .config/swww ~/.config
-
-# Copy files
-cp -r my-hyprland-config ~/.config/hypr
-cp -r ~/.config/hypr/configs/ags ~/.config/ags
-cp -r ~/.config/hypr/configs/wofi ~/.config/wofi
-cp ~/.config/hypr/configs/config.fish ~/.config/fish/config.fish
-
-# Set permissions for scripts
-sudo chmod +x ~/.config/hypr/scripts/*
-sudo chmod +x ~/.config/ags/scripts/*
-
-# Setup environment
-sudo cp /etc/environment /etc/environmentOLD
-echo 'QT_QPA_PLATFORMTHEME=qt5ct' | sudo tee -a /etc/environment
-
-# Copy theme files
-mkdir -p ~/.local/share/color-schemes/
-cp ~/.config/ags/modules/theme/plasma-colors/* ~/.local/share/color-schemes/
-cp ~/.config/hypr/configs/qt5ct.conf ~/.config/qt5ct/
-
-mkdir -p ~/.fonts
-cp -r ~/.config/hypr/configs/.fonts/* ~/.fonts
-
-mkdir -p ~/.local/share/icons
-tar xvf ~/.config/hypr/configs/icons/*.tar.gz -C ~/.local/share/icons
-
-mkdir -p ~/.themes
-tar xvf ~/.config/hypr/configs/gtk-themes/*.tar.gz -C ~/.themes
-
-# Install plymouth
-yay -S --noconfirm plymouth-theme-sweet-arch-git
-
-# Enable plymouth
-sudo plymouth-set-default-theme -R sweet-arch
-
-# Clone, install, and enable sddm
-git clone https://github.com/stuomas/delicious-sddm-theme.git && cd delicious-sddm-theme && chmod +x ./install.sh
 
 # Enable sddm
 sudo systemctl enable sddm
