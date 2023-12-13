@@ -31,6 +31,8 @@ yay -S --noconfirm autoconf autoconf-archive automake base-devel multilib-devel 
 # Prompt user to choose Rust version
 echo "Select default Rust version using 'rustup default <version>' (e.g., stable, nightly)"
 read -p "Enter Rust version: " rust_version
+# you have 8 seconds to choose
+sleep .8
 rustup default "$rust_version" || { echo "Failed to set default Rust version"; exit 1; }
 
 # Update user dirs
