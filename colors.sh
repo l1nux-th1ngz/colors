@@ -10,7 +10,7 @@ pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git
 yay -S --noconfirm autoconf autoconf-archive automake base-devel multilib-devel \
   wlroots wayland wayland-utils wayland-protocols gdb ninja gcc cmake meson \
   libxcb xcb-proto xcb-util xcb-util-keysyms libxfixes libx11 libxcomposite \
-  xorg-xinput libxrender pixman wayland-protocols cairo pango seatd \
+  xorg-xinput libxrender pixman wayland-protocols cairo pango seatd compiler-rt \
   libxkbcommon xcb-util-wm xorg-xwayland libinput libliftoff libdisplay-info \
   cpio npm jo jq tomlplusplus clang gcc qt5-wayland qt6-wayland xdg-desktop-portal \
   xdg-desktop-portal-gtk xdg-desktop-portal-wlr nodejs xdg-desktop-portal-hyprland \
@@ -27,7 +27,11 @@ yay -S --noconfirm autoconf autoconf-archive automake base-devel multilib-devel 
   spotify spotify-adblock-git spotify-wayland tumbler hyprland-git \
   aylurs-gtk-shell eww-wayland zenity aalib jp2a ascii i2pd lsd thefuck \
   archinstall shell-color-scripts udisks2 udiskie aurutils pavucontrol \
-  xdg-user-dirs pacman-contrib reflector
+  xdg-user-dirs pacman-contrib reflector rustup
+# Prompt user to choose Rust version
+echo "Select default Rust version using 'rustup default <version>' (e.g., stable, nightly)"
+read -p "Enter Rust version: " rust_version
+rustup default "$rust_version" || { echo "Failed to set default Rust version"; exit 1; }
 
 # Update user dirs
 xdg-user-dirs-update
@@ -36,7 +40,7 @@ xdg-user-dirs-update
 sudo systemctl enable paccache.timer
 
 # Clone git repo
-git clone https://github.com/l1nux-th1ngz/colors.git && cd colors && chmod +x colors.sh
+git clone https://github.com/l1nux-th1ngz/colors.git
 
 # Files
 mv ~/.config/hypr/ ~/.config/hypr-old
