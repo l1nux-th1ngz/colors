@@ -3,14 +3,22 @@
 # First things first
 sudo pacman -S --noconfirm git go
 
+# Install Rust using pacman
+sudo pacman -S --noconfirm rustup
+
+# Prompt user to choose Rust version with an 8-second timeout
+echo "Select default Rust version using 'rustup default <version>' (e.g., stable, nightly)"
+read -t 8 -p "Enter Rust version (timeout in 8 seconds): " rust_version
+rustup default "$rust_version" || { echo "Failed to set default Rust version"; exit 1; }
+
 # Install yay
 pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
 
-# Install packages
+# Install other packages with yay
 yay -S --noconfirm autoconf autoconf-archive automake base-devel multilib-devel \
   wlroots wayland wayland-utils wayland-protocols gdb ninja gcc cmake meson \
   libxcb xcb-proto xcb-util xcb-util-keysyms libxfixes libx11 libxcomposite \
-  xorg-xinput libxrender pixman wayland-protocols cairo pango seatd compiler-rt \
+  xorg-xinput libxrender pixman wayland-protocols cairo pango seatd \
   libxkbcommon xcb-util-wm xorg-xwayland libinput libliftoff libdisplay-info \
   cpio npm jo jq tomlplusplus clang gcc qt5-wayland qt6-wayland xdg-desktop-portal \
   xdg-desktop-portal-gtk xdg-desktop-portal-wlr nodejs xdg-desktop-portal-hyprland \
@@ -27,13 +35,9 @@ yay -S --noconfirm autoconf autoconf-archive automake base-devel multilib-devel 
   spotify spotify-adblock-git spotify-wayland tumbler hyprland-git \
   aylurs-gtk-shell eww-wayland zenity aalib jp2a ascii i2pd lsd thefuck \
   archinstall shell-color-scripts udisks2 udiskie aurutils pavucontrol \
-  xdg-user-dirs pacman-contrib reflector rustup sddm plymouth
-# Prompt user to choose Rust version
-echo "Select default Rust version using 'rustup default <version>' (e.g., stable, nightly)"
-read -p "Enter Rust version: " rust_version
-# you have 8 seconds to choose
-sleep .8
-rustup default "$rust_version" || { echo "Failed to set default Rust version"; exit 1; }
+  xdg-user-dirs pacman-contrib reflector
+
+# Continue with the rest of the script...
 
 # Update user dirs
 xdg-user-dirs-update
@@ -42,7 +46,7 @@ xdg-user-dirs-update
 sudo systemctl enable paccache.timer
 
 # Clone git repo
-git clone git@github.com:AhmedSaadi0/my-hyprland-config.git
+git clone https://github.com/l1nux-th1ngz/colors.git
 
 # Files
 mv ~/.config/hypr/ ~/.config/hypr-old
@@ -95,6 +99,9 @@ sudo plymouth-set-default-theme -R sweet-arch
 
 # Clone, install, and enable sddm
 git clone https://github.com/stuomas/delicious-sddm-theme.git && cd delicious-sddm-theme && chmod +x ./install.sh
+
+# Enable sddm
+sudo systemctl enable sddm
 
 # Update Arch and reboot
 sudo pacman -Syu --noconfirm && reboot
